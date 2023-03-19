@@ -94,20 +94,25 @@ def run():
 
         out.write((image_ * 255).astype(np.uint8))
         cv.imshow('Minha Imagem!', image_)
-
+        
         if cv.waitKey(1) == ord('d'):
             rodando_direita = True
             rodando_esquerda = False 
+            print('Rotação a direita')
+
 
         if cv.waitKey(1) == ord('a'):
             rodando_direita = False
             rodando_esquerda = True
+            print('Rotação a esquerda')
 
         if cv.waitKey(1) == ord('z'):
             if zoom:
+                print('Zoom removido')
                 zoom = False
             elif not zoom:
                 zoom = True
+                print('Zoom aplicado')
 
         if cv.waitKey(1) == ord('q'):
             break
