@@ -36,18 +36,22 @@ def run():
         X = criar_indices(0,width,0,height)
         X = np.vstack((X,np.ones(X.shape[1])))
 
+        T = np.array([[1, 0, -height/2], [0, 1, -width/2], [0, 0,1]])
+        T2 = np.array([[1, 0, height/2], [0, 1, width/2], [0, 0,1]])
         R = np.array([[np.cos(math.radians(ang)), -np.sin(math.radians(ang)), 0], [np.sin(math.radians(ang)), np.cos(math.radians(ang)), 0], [0, 0, 1]])
-        Xd = R @ X
+        Xd = T2 @ R @ T @ X
 
         Xd = Xd.astype(int)
         X = X.astype(int)
+        
 
-        filter = (Xd[0,:] >= 0) & (Xd[0,:] <= image.shape[0]) & (Xd[1,:] >= 0) & (Xd[1,:] <= image.shape[1])
+        filter = (Xd[0,:] >= 0) & (Xd[0,:] < image.shape[0]) & (Xd[1,:] >= 0) & (Xd[1,:] < image.shape[1])
 
         Xd, X = Xd[:,filter], X[:,filter]
 
-        print(Xd.shape,X.shape)
-        image_[Xd[0,:], Xd[1,:], :] = image[X[0,:], X[1,:], :]
+        fx = image.shape[0]-1
+        fy = image.shape[1]-1
+        image_[Xd[0,:], Xd[1,:], :] = image[X[0,fx], X[1,fy], :]
         ang += 1
 
         cv.imshow('Minha Imagem!', image_)
