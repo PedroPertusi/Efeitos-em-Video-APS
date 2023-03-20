@@ -21,6 +21,8 @@ def on_mouse(event, x, y, flags, param):
         print('Velocidade reduzida')
 
 def run():
+    global file_name
+    global salvar
     global vel
     cap = cv.VideoCapture(0)
 
@@ -125,11 +127,13 @@ def run():
 
         cv.setMouseCallback('Minha Imagem!', on_mouse)
 
-    if salvar:
-        out.release()
-        print("Video saved to output.mp4")
 
+    out.release()
+    print("Video saved to output.mp4")
     cap.release()
     cv.destroyAllWindows()
 
 run()
+
+if not salvar:
+    os.remove(file_name)
