@@ -18,7 +18,7 @@ Por meio da biblioteca OpenCV, foi possível capturar a câmera do usuário e co
 Com auxílio do NumPy, inserimos 3 tipos de transformações matriciais: Translação, Rotação e Expansão. 
 - A primeira delas, a translação, foi utilizada para conduzir o vértice superior esquerdo da imagem para o centro da tela. `[[1, 0, -height/2], [0, 1, -width/2], [0, 0, 1]]`
 - A rotação representada por: `[[np.cos(math.radians(ang)), -np.sin(math.radians(ang)), 0], [np.sin(math.radians(ang)), np.cos(math.radians(ang)), 0], [0, 0, 1]]`, foi responsável por girar a imagem, levando em consideração o ângulo que é incrementado a cada frame.
-- Expansão: `[[2, 0, 0], [0, 2, 0], [0, 0, 1]]`. Usado para gerar efeito de Zoom 2X no centro da imagem.
+- Expansão: Existem duas expansões a de 1.5x e 2.0x elas seguem a matriz`[[2/1.5, 0, 0], [0, 2/1.5, 0], [0, 0, 1]]`. Usado para gerar efeito de Zoom no centro da imagem.
 - Por fim a imagem recebeu novamente uma translação, mas agora para retorná-la para a posição inicial.
 
 ## Funcionalidades Adicionais
@@ -27,6 +27,7 @@ Com auxílio do NumPy, inserimos 3 tipos de transformações matriciais: Transla
 | Zoom IN & OUT | Z |
 | Rotacionar Esquerda | A |
 | Rotacionar Direita | D |
+| Resetar Angulo de Rotação | R |
 | Aumentar velocidade | Mouse Botão Esquerdo |
 | Reduzir velocidade | Mouse Botão Direito |
 | Salvar vídeo | S |
