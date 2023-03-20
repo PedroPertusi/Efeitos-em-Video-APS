@@ -1,4 +1,5 @@
-# Efeitos em Video
+# DivertCam
+### App de Webcam e Filtros Interativos
 Por Alexandre Magno e Pedro Pertusi
 
 ## Descrição
