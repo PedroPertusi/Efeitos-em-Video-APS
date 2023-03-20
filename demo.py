@@ -44,6 +44,7 @@ def run():
         file_name = f"output{i}.mp4"
         if not os.path.isfile(file_name):
             break
+
     
     fps = cap.get(cv.CAP_PROP_FPS)
     fourcc = cv.VideoWriter_fourcc(*'mp4v')
@@ -145,7 +146,10 @@ def run():
 
 
     out.release()
-    print("Video saved to output.mp4")
+    if salvar:
+        print(f"Video saved to {file_name}")
+    else:
+        print("O video não foi salvo")
     cap.release()
     cv.destroyAllWindows()
 
