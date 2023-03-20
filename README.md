@@ -24,7 +24,7 @@ Com auxílio do NumPy, inserimos 3 tipos de transformações matriciais: Transla
 ## Funcionalidades Adicionais
 | Ação | Tecla | 
 | --- | --- |
-| Zoom IN & OUT | Z |
+| Zoom IN & OUT (1.5x e 2.0x) | Z |
 | Rotacionar Esquerda | A |
 | Rotacionar Direita | D |
 | Resetar Angulo de Rotação | R |
