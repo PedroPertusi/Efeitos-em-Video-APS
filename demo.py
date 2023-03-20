@@ -65,7 +65,7 @@ def run():
         Xd = np.vstack((Xd,np.ones(Xd.shape[1])))
 
         if zoom == 1:
-            E = np.array([[1.5, 0, 0], [0, 1.5, 0], [0, 0, 1]]) #matriz de expansão
+            E = np.array([[1.5, 0, 0], [0, 1.5, 0], [0, 0, 1]])
         elif zoom == 2:
             E = np.array([[2, 0, 0], [0, 2, 0], [0, 0, 1]]) 
 
@@ -73,8 +73,6 @@ def run():
         T2 = np.array([[1, 0, height/2], [0, 1, width/2], [0, 0, 1]])
         R = np.array([[np.cos(math.radians(ang)), -np.sin(math.radians(ang)), 0], [np.sin(math.radians(ang)), np.cos(math.radians(ang)), 0], [0, 0, 1]])
 
-        # if zoom == 0 and not rodando_direita and not rodando_esquerda:
-        #     A= np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         if zoom == 1 or zoom == 2:
             A = T2 @ R @ E @ T 
         elif zoom == 0:
