@@ -1,4 +1,4 @@
-# Efeitos-em-Video-APS
+# Efeitos em Video
 Por Alexandre Magno e Pedro Pertusi
 
 ## Descrição
