@@ -30,9 +30,9 @@ def run():
     height = 240
     ang = 0
     rodando_direita = False
-    rodando_esquerda = True
+    rodando_esquerda = False
     vel = 1
-    zoom = False
+    zoom = 0
     salvar = False
 
     if not cap.isOpened():
@@ -64,14 +64,20 @@ def run():
         Xd = criar_indices(0,height,0,width)
         Xd = np.vstack((Xd,np.ones(Xd.shape[1])))
 
-        E = np.array([[2, 0, 0], [0, 2, 0], [0, 0, 1]]) #matriz de expansão
+        if zoom == 1:
+            E = np.array([[1.5, 0, 0], [0, 1.5, 0], [0, 0, 1]]) #matriz de expansão
+        elif zoom == 2:
+            E = np.array([[2, 0, 0], [0, 2, 0], [0, 0, 1]]) 
 
         T = np.array([[1, 0, -height/2], [0, 1, -width/2], [0, 0, 1]])
         T2 = np.array([[1, 0, height/2], [0, 1, width/2], [0, 0, 1]])
         R = np.array([[np.cos(math.radians(ang)), -np.sin(math.radians(ang)), 0], [np.sin(math.radians(ang)), np.cos(math.radians(ang)), 0], [0, 0, 1]])
-        if zoom:
+
+        # if zoom == 0 and not rodando_direita and not rodando_esquerda:
+        #     A= np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        if zoom == 1 or zoom == 2:
             A = T2 @ R @ E @ T 
-        elif not zoom:
+        elif zoom == 0:
             A = T2 @ R @ T 
         X = np.linalg.inv(A) @ Xd
 
@@ -100,30 +106,42 @@ def run():
         x = cv.waitKey(1)
 
         if x == ord('d'):
-            rodando_direita = True
+            if not rodando_direita:
+                rodando_direita = True
+            else:
+                rodando_direita = False
             rodando_esquerda = False 
             print('Rotação a direita')
 
 
         if x == ord('a'):
+            if not rodando_esquerda:
+                rodando_esquerda = True
+            else:
+                rodando_esquerda = False
             rodando_direita = False
-            rodando_esquerda = True
             print('Rotação a esquerda')
 
         if x == ord('z'):
-            if zoom:
+            if zoom == 1:
+                print('Zoom ampliado pra 2x')
+                zoom = 2
+            elif zoom == 0:
+                zoom = 1
+                print('Zoom ampliado para 1.5x')
+            else:
+                zoom = 0
                 print('Zoom removido')
-                zoom = False
-            elif not zoom:
-                zoom = True
-                print('Zoom aplicado')
-
         if x == ord('q'):
             break
 
         if x == ord('s'):
             salvar = True
             print('Video is being saved')
+
+        if x == ord('r'):
+            ang = 0
+            print('Angulo de rotação resetado')
 
         cv.setMouseCallback('Minha Imagem!', on_mouse)
 
@@ -136,4 +154,4 @@ def run():
 run()
 
 if not salvar:
-    os.remove(file_name)
+    os.remove(file_name) 
