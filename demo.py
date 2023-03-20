@@ -15,10 +15,14 @@ def on_mouse(event, x, y, flags, param):
     global vel
     if event == cv.EVENT_LBUTTONUP:
         vel += 1
+        print('Velocidade aumentada')
     if event == cv.EVENT_RBUTTONUP and vel > 1:
         vel -= 1
+        print('Velocidade reduzida')
 
 def run():
+    global file_name
+    global salvar
     global vel
     cap = cv.VideoCapture(0)
 
@@ -89,40 +93,47 @@ def run():
         elif rodando_esquerda:
             ang += 1 * vel
 
-        # image = cv.convertScaleAbs(image * 255)
-        # cv.imshow('Minha Imagem!', image_)
 
         out.write((image_ * 255).astype(np.uint8))
         cv.imshow('Minha Imagem!', image_)
+        
+        x = cv.waitKey(1)
 
-        if cv.waitKey(1) == ord('d'):
+        if x == ord('d'):
             rodando_direita = True
             rodando_esquerda = False 
+            print('Rotação a direita')
 
-        if cv.waitKey(1) == ord('a'):
+
+        if x == ord('a'):
             rodando_direita = False
             rodando_esquerda = True
+            print('Rotação a esquerda')
 
-        if cv.waitKey(1) == ord('z'):
+        if x == ord('z'):
             if zoom:
+                print('Zoom removido')
                 zoom = False
             elif not zoom:
                 zoom = True
+                print('Zoom aplicado')
 
-        if cv.waitKey(1) == ord('q'):
+        if x == ord('q'):
             break
 
-        if cv.waitKey(1) == ord('s'):
+        if x == ord('s'):
             salvar = True
             print('Video is being saved')
 
         cv.setMouseCallback('Minha Imagem!', on_mouse)
 
-    if salvar:
-        out.release()
-        print("Video saved to output.mp4")
 
+    out.release()
+    print("Video saved to output.mp4")
     cap.release()
     cv.destroyAllWindows()
 
 run()
+
+if not salvar:
+    os.remove(file_name)
